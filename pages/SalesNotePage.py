@@ -1,11 +1,10 @@
-#importes
+import os
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select  # <-- Importamos la clase Select
+from selenium.webdriver.support.ui import Select
 from pages.BasePage import BasePage
 
 class SalesNotePage(BasePage):
-    """Mapeo semantico de localizadores DOM y operaciones de negocio del modulo transaccional."""
-    
+
     CUSTOMER_INPUT = (By.ID, "customer_id")
     PRODUCT_DROPDOWN = (By.ID, "product_select")
     QUANTITY_INPUT = (By.ID, "quantity_field")
@@ -16,7 +15,8 @@ class SalesNotePage(BasePage):
 
     def __init__(self, driver):
         super().__init__(driver)
-        self.url = "http://localhost:8000/sales_note/"
+        ruta_html = os.path.abspath(os.path.join(os.getcwd(), "sales_note", "index.html"))
+        self.url = f"file:///{ruta_html}"
 
     def navigate_to_module(self):
         self.driver.get(self.url)
