@@ -16,7 +16,7 @@ class SalesNotePage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
         ruta_html = os.path.abspath(os.path.join(os.getcwd(), "sales_note", "index.html"))
-        self.url = f"file:///{ruta_html}"
+        self.url = "http://localhost:8000/sales_note/"
 
     def navigate_to_module(self):
         self.driver.get(self.url)
