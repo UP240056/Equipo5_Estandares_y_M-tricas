@@ -1,0 +1,31 @@
+name: CI Quality Pipeline
+on: [push]
+jobs:
+  build-test-analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Instalar Dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install selenium pytest pytest-cov pytest-html
+
+      - name: Levantar servidor y ejecutar pruebas
+        run: |
+          python -m http.server 8000 &
+          sleep 3
+          pytest --cov=pages --cov=tests --cov-report=xml
+
+      - name: Ejecutar Escaner SonarCloud
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

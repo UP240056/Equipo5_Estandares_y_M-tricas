@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><title>Nota de Venta Mock</title></head>
+<body>
+    <input type="text" id="customer_id" placeholder="Cliente">
+    <select id="product_select">
+        <option value="PROD-ABC">PROD-ABC</option>
+        <option value="PROD-123">PROD-123</option>
+        <option value="PROD-XYZ">PROD-XYZ</option>
+    </select>
+    <input type="number" id="quantity_field" placeholder="Cantidad">
+    <button id="btn_add_item">Agregar Item</button>
+    <button id="btn_save_sales_note" onclick="simularGuardado()">Guardar Nota</button>
+    <div id="alerta_mensaje"></div>
+    <script>
+        function simularGuardado() {
+            let customer = document.getElementById("customer_id").value;
+            let qty = parseInt(document.getElementById("quantity_field").value);
+            let alerta = document.getElementById("alerta_mensaje");
+            if (!customer) { alerta.className = "alert-danger"; alerta.innerText = "El identificador del cliente es obligatorio"; }
+            else if (qty === 0) { alerta.className = "alert-danger"; alerta.innerText = "La cantidad minima a vender debe ser 1"; }
+            else if (qty < 0) { alerta.className = "alert-danger"; alerta.innerText = "No se permiten cantidades negativas"; }
+            else { alerta.className = "alert-success"; alerta.innerText = "Nota de venta procesada exitosamente"; }
+        }
+    </script>
+</body>
+</html>
